@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://31f55lpc1o0y" path="res://Arrow1.png" id="3_2fo3x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wntuh"]
-size = Vector2(30, 54)
+size = Vector2(31, 54)
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -13,22 +13,30 @@ script = ExtResource("1_73vcq")
 RotationAccelerationFactor = 0.001
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_wntuh")
 
-[node name="Model" type="Node2D" parent="."]
+[node name="TransformRoot" type="Node2D" parent="."]
 rotation = 1.57079
 
-[node name="Sprite2D" type="Sprite2D" parent="Model"]
-texture = ExtResource("1_v1lfh")
+[node name="MovementGuideSystem" type="Node2D" parent="TransformRoot"]
 
-[node name="MovementGuideSystem" type="Node2D" parent="."]
-
-[node name="DirectionVector" type="Sprite2D" parent="MovementGuideSystem"]
-position = Vector2(30, 0)
-rotation = 1.57079
+[node name="DirectionVector" type="Sprite2D" parent="TransformRoot/MovementGuideSystem"]
+position = Vector2(0, -30)
 texture = ExtResource("3_2fo3x")
 
-[node name="Aim" type="Line2D" parent="MovementGuideSystem"]
+[node name="Model" type="Node2D" parent="TransformRoot"]
+
+[node name="Sprite2D" type="Sprite2D" parent="TransformRoot/Model"]
+texture = ExtResource("1_v1lfh")
+
+[node name="HelperGuides" type="Node2D" parent="."]
+
+[node name="Aim" type="Line2D" parent="HelperGuides"]
 width = 1.0
 default_color = Color(0.560784, 0, 0.113725, 1)
+
+[node name="Forward" type="Line2D" parent="HelperGuides"]
+points = PackedVector2Array(0, 0, 0, 0)
+default_color = Color(0, 0.505882, 0.556863, 1)
+antialiased = true

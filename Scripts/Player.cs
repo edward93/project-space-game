@@ -46,13 +46,16 @@ public partial class Player : CharacterBody2D
   /// </summary>
   private Line2D _aimLine;
 
+  private Line2D _forwardDir;
+
   /// <summary>
   /// Init
   /// </summary>
   public override void _Ready()
   {
     _model = GetNode<Node2D>("Model");
-    _aimLine = GetNode<Line2D>("MovementGuideSystem/Aim");
+    _aimLine = GetNode<Line2D>("HelperGuides/Aim");
+    _forwardDir = GetNode<Line2D>("HelperGuides/Forward");
 
     _aimLine.AddPoint(Vector2.Zero);
     _aimLine.AddPoint(Vector2.Zero);
@@ -89,6 +92,7 @@ public partial class Player : CharacterBody2D
     }
     if (inputEvent.IsActionPressed("Esc"))
     {
+      GD.Print($"Esc pressed - GameState: {GetTree().Paused}");
       if (GetTree().Paused) GetTree().Quit();
       else GetTree().Paused = true;
     }
@@ -96,28 +100,32 @@ public partial class Player : CharacterBody2D
 
   public override void _PhysicsProcess(double delta)
   {
-    // read input
-    var direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-    // calc movement dir
-    var movementDir = direction.Normalized();
+    // TODO: rotate player gradually
+    LookAt(GetGlobalMousePosition());
 
-    RealisticControls(movementDir, delta);
-    // GD.Print($"Pos: {Position} G Pos: {GlobalPosition}");
+    // RealisticAbsoluteControls(delta);
+    RealisticRelativeControls(delta);
     MoveAndSlide();
   }
 
   public override void _Process(double delta)
   {
     DrawAimLine(delta);
+
+    // _forwardDir.SetPointPosition(1, _forwardDir.Points[0] + (Transform.X - _forwardDir.Points[0]).Normalized() * MaxAimLength );
   }
 
   /// <summary>
-  /// Handles velocity/acceleration in a more realistic way
+  /// Handles velocity/acceleration in a more realistic way.
+  /// Directions are not dependent on the orientation of the player, meaning "Up" will translate the player in the -y direction of the screen
   /// </summary>
-  /// <param name="movementDir">Direction of the movement (comes from the controller)</param>
   /// <param name="delta">Processing time</param>
-  private void RealisticControls(Vector2 movementDir, double delta)
+  private void RealisticAbsoluteControls(double delta)
   {
+    // read input
+    var direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
+    // calc movement dir
+    var movementDir = direction.Normalized();
     // calc target acceleration (assumes near instant torque, meaning object reaches the target acceleration instantly)
     var acceleration = movementDir * Acceleration;
 
@@ -126,8 +134,21 @@ public partial class Player : CharacterBody2D
 
     // update the Velocity v = a*t (where t = 1 since we are running this per physics tic)
     Velocity += acceleration;
+  }
 
-    // GD.Print($"Velocity: ({Velocity.X:F3}, {Velocity.Y:F3}) Acceleration: ({acceleration.X:F3}, {acceleration.Y:F3})");
+  private void RealisticRelativeControls(double delta)
+  {
+    // read input
+    var direction = Input.GetVector("Thrust Down", "Thrust Up", "MoveLeft", "MoveRight");
+    // calc movement dir
+    var movementDir = direction.Normalized();
+    // calc target acceleration (assumes near instant torque, meaning object reaches the target acceleration instantly)
+    var acceleration = movementDir.Rotated(Rotation) * Acceleration;
+    // GD.Print($"Rotated dir: {movementDir.Rotated(Rotation)}");
+    // apply dampening (Friction)
+    acceleration = acceleration.Lerp(-Velocity, (float)delta * DampeningFactor);
+    // update the Velocity v = a*t (where t = 1 since we are running this per physics tic)
+    Velocity += acceleration;
   }
 
   /// <summary>
