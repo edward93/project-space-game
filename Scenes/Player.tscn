@@ -7,10 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wntuh"]
 size = Vector2(31, 54)
 
-[node name="Player" type="CharacterBody2D"]
-motion_mode = 1
+[node name="Player" type="RigidBody2D"]
+gravity_scale = 0.0
+angular_damp_mode = 1
 script = ExtResource("1_73vcq")
-RotationAccelerationFactor = 0.001
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -35,8 +35,3 @@ texture = ExtResource("1_v1lfh")
 [node name="Aim" type="Line2D" parent="HelperGuides"]
 width = 1.0
 default_color = Color(0.560784, 0, 0.113725, 1)
-
-[node name="Forward" type="Line2D" parent="HelperGuides"]
-points = PackedVector2Array(0, 0, 0, 0)
-default_color = Color(0, 0.505882, 0.556863, 1)
-antialiased = true
