@@ -10,11 +10,18 @@ public partial class Player : RigidBody2D
   /// </summary>
   [Export]
   public float Acceleration = 5.0f;
+
   /// <summary>
-  /// Friction coefficient
+  /// Angular velocity min value
   /// </summary>
   [Export]
-  public float DampeningFactor = 2.0f;
+  public float AngularVelocityMin = -0.75f;
+
+  /// <summary>
+  /// Angular velocity max value
+  /// </summary>
+  [Export]
+  public float AngularVelocityMax = 0.75f;
 
   /// <summary>
   /// How quickly model rotates
@@ -43,7 +50,6 @@ public partial class Player : RigidBody2D
   /// Aim line
   /// </summary>
   private Line2D _aimLine;
-
 
   /// <summary>
   /// Init
@@ -77,7 +83,6 @@ public partial class Player : RigidBody2D
   /// <param name="delta"></param>
   public override void _PhysicsProcess(double delta)
   {
-    // RealisticAbsoluteControls(delta);
     RealisticRelativeControls(delta);
   }
 
@@ -91,30 +96,6 @@ public partial class Player : RigidBody2D
   }
 
   /// <summary>
-  /// Handles velocity/acceleration in a more realistic way.
-  /// Directions are not dependent on the orientation of the player, meaning "Up" will translate the player in the -y direction of the screen
-  /// </summary>
-  /// <param name="delta">Processing time</param>
-  private void RealisticAbsoluteControls(double delta)
-  {
-    // read input
-    var direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-    // calc movement dir
-    var movementDir = direction.Normalized();
-    // calc target acceleration (assumes near instant torque, meaning object reaches the target acceleration instantly)
-    var acceleration = movementDir * Acceleration;
-
-    // apply dampening (Friction)
-    // acceleration = acceleration.Lerp(-Velocity, (float)delta * DampeningFactor);
-    acceleration = acceleration.Lerp(-LinearVelocity, (float)delta * DampeningFactor);
-
-    // update the Velocity v = a*t (where t = 1 since we are running this per physics tic)
-    // Velocity += acceleration;
-    // LinearVelocity += acceleration;
-    ApplyCentralForce(acceleration);
-  }
-
-  /// <summary>
   /// Realistic relative controls for Rigid body
   /// </summary>
   /// <param name="delta"></param>
@@ -124,15 +105,16 @@ public partial class Player : RigidBody2D
     var direction = Input.GetVector("Thrust Down", "Thrust Up", "MoveLeft", "MoveRight");
     // calc movement dir
     var movementDir = direction.Normalized();
+
+    // lower the sideway thrusters power
+    movementDir = new Vector2(movementDir.X, movementDir.Y * 0.3f);
     // calc target acceleration (assumes near instant torque, meaning object reaches the target acceleration instantly)
     var acceleration = movementDir.Rotated(Rotation) * Acceleration;
 
     // rotate the node only when thurs is applied
     if (movementDir != Vector2.Zero) RotateNode(delta);
 
-    // apply dampening (Friction)
-    acceleration = acceleration.Lerp(-LinearVelocity, (float)delta * DampeningFactor);
-    // update the Velocity v = a*t (where t = 1 since we are running this per physics tic)
+    // update the linear velocity
     LinearVelocity += acceleration;
   }
 
@@ -145,28 +127,16 @@ public partial class Player : RigidBody2D
     // calc how much to rotate
     var rotation = GetAngleTo(ToGlobal(_aimLine.GetPointPosition(1)));
 
-    // slowly rotate the root node
-    Rotation = Mathf.Lerp(Rotation, Rotation + rotation, (float)delta * RotationAccelerationFactor);
-  }
+    // var rot = Mathf.Lerp(rotation, -AngularVelocity, (float)delta * 20);
 
-  /// <summary>
-  /// Realistic relative controls for character body
-  /// </summary>
-  /// <param name="delta">delta time</param>
-  // private void RealisticRelativeControlsCharacterBody(double delta)
-  // {
-  //   // read input
-  //   var direction = Input.GetVector("Thrust Down", "Thrust Up", "MoveLeft", "MoveRight");
-  //   // calc movement dir
-  //   var movementDir = direction.Normalized();
-  //   // calc target acceleration (assumes near instant torque, meaning object reaches the target acceleration instantly)
-  //   var acceleration = movementDir.Rotated(Rotation) * Acceleration;
-  //   // GD.Print($"Rotated dir: {movementDir.Rotated(Rotation)}");
-  //   // apply dampening (Friction)
-  //   acceleration = acceleration.Lerp(-Velocity, (float)delta * DampeningFactor);
-  //   // update the Velocity v = a*t (where t = 1 since we are running this per physics tic)
-  //   Velocity += acceleration;
-  // }
+    AngularVelocity = Mathf.Clamp(rotation, AngularVelocityMin, AngularVelocityMax);
+
+    // var rot = Mathf.Lerp(Rotation, Rotation + rotation, (float)delta * RotationAccelerationFactor);
+    // rot = Mathf.Lerp(rot, Rotation, (float)(delta * 0.0001));
+    // slowly rotate the root node
+    // Rotation = Mathf.Lerp(Rotation, Rotation + rotation, (float)Mathf.Clamp(delta * RotationAccelerationFactor, 0, 0.01));
+    // Rotation += rot;
+  }
 
   /// <summary>
   /// Draws the aim line
