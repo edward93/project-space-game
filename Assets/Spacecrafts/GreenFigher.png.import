@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsnmrhsdaf867"
-path="res://.godot/imported/Nairan - Torpedo Ship - Base.png-b4143642599a53c33b36db3723519f44.ctex"
+uid="uid://dagklebpo4qoy"
+path="res://.godot/imported/GreenFigher.png-b57c89eba15e630608b4e84247d940d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Nairan - Torpedo Ship - Base.png"
-dest_files=["res://.godot/imported/Nairan - Torpedo Ship - Base.png-b4143642599a53c33b36db3723519f44.ctex"]
+source_file="res://Assets/Spacecrafts/GreenFigher.png"
+dest_files=["res://.godot/imported/GreenFigher.png-b57c89eba15e630608b4e84247d940d2.ctex"]
 
 [params]
 

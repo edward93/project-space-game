@@ -11,13 +11,15 @@ public partial class PlayerHUD : CanvasLayer
   /// </summary>
   private Label _speedLabel;
 
+  private TextureRect _directionArrow;
+
   /// <summary>
   /// Called once
   /// </summary>
   public override void _Ready()
   {
     _speedLabel = GetNode<Label>("Velocity/Velocity Circle/SpeedLabel");
-
+    _directionArrow = GetNode<TextureRect>("Velocity/Velocity Circle/DirectionArrow");
   }
 
   /// <summary>
@@ -27,5 +29,8 @@ public partial class PlayerHUD : CanvasLayer
   public override void _Process(double delta)
   {
     _speedLabel.Text = $"{Player.LinearVelocity.Length():F3} µ/s";
+    
+    // show the player's direction
+    _directionArrow.Rotation = Player.Rotation;
   }
 }

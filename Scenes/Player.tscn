@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://d112h4wsu7qti"]
+[gd_scene load_steps=6 format=3 uid="uid://d112h4wsu7qti"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_73vcq"]
-[ext_resource type="Texture2D" uid="uid://b84h2dnttnma3" path="res://Assets/Spacecrafts/Fighter.png" id="3_ptci8"]
-[ext_resource type="PackedScene" uid="uid://cp16oa2p72t1x" path="res://PlayerHUD.tscn" id="4_o6b5t"]
+[ext_resource type="PackedScene" uid="uid://df7y6nu3sxrcq" path="res://Scenes/LaserWeapon.tscn" id="2_h8hhr"]
+[ext_resource type="Texture2D" uid="uid://dagklebpo4qoy" path="res://Assets/Spacecrafts/GreenFigher.png" id="2_qtph4"]
+[ext_resource type="PackedScene" uid="uid://cp16oa2p72t1x" path="res://Scenes/PlayerHUD.tscn" id="3_1vyjo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pdpup"]
 radius = 32.0
-height = 169.0
+height = 65.0001
 
 [node name="Player" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -14,6 +15,11 @@ linear_damp = 2.0
 angular_damp_mode = 1
 angular_damp = 2.0
 script = ExtResource("1_73vcq")
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="Laser" parent="Weapons" instance=ExtResource("2_h8hhr")]
+position = Vector2(31, 0)
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -26,7 +32,7 @@ rotation = 1.57079
 [node name="Model" type="Node2D" parent="TransformRoot"]
 
 [node name="PlayerSprite" type="Sprite2D" parent="TransformRoot/Model"]
-texture = ExtResource("3_ptci8")
+texture = ExtResource("2_qtph4")
 
 [node name="HelperGuides" type="Node2D" parent="."]
 
@@ -34,5 +40,5 @@ texture = ExtResource("3_ptci8")
 width = 1.0
 default_color = Color(0.560784, 0, 0.113725, 1)
 
-[node name="HUD" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("4_o6b5t")]
+[node name="HUD" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("3_1vyjo")]
 Player = NodePath("..")

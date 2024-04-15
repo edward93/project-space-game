@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://df7y6nu3sxrcq"]
+
+[ext_resource type="Script" path="res://Scripts/LaserWeapon.cs" id="1_0g1gy"]
+[ext_resource type="Shader" path="res://Materials/Shaders/LaserBeam.gdshader" id="1_f7lh1"]
+[ext_resource type="Texture2D" uid="uid://wdcbnu3e1sfp" path="res://Materials/BeamGlowGradient.tres" id="2_d0rbj"]
+
+[sub_resource type="Gradient" id="Gradient_k6agl"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.2, 0.5, 0.8)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1yjqx"]
+gradient = SubResource("Gradient_k6agl")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8hiuh"]
+shader = ExtResource("1_f7lh1")
+shader_parameter/main_color = Color(0.65098, 0, 0.294118, 1)
+shader_parameter/laser_color = Color(1, 1, 1, 1)
+shader_parameter/glow_gradient = ExtResource("2_d0rbj")
+shader_parameter/beam_central_part = SubResource("GradientTexture2D_1yjqx")
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_0g1gy")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(10000, 0)
+
+[node name="LaserBeam" type="Line2D" parent="RayCast2D"]
+material = SubResource("ShaderMaterial_8hiuh")
+points = PackedVector2Array(0, 0, 121, 0)
+texture_mode = 2
+begin_cap_mode = 2
+antialiased = true

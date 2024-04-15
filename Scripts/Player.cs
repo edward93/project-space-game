@@ -126,16 +126,7 @@ public partial class Player : RigidBody2D
   {
     // calc how much to rotate
     var rotation = GetAngleTo(ToGlobal(_aimLine.GetPointPosition(1)));
-
-    // var rot = Mathf.Lerp(rotation, -AngularVelocity, (float)delta * 20);
-
     AngularVelocity = Mathf.Clamp(rotation, AngularVelocityMin, AngularVelocityMax);
-
-    // var rot = Mathf.Lerp(Rotation, Rotation + rotation, (float)delta * RotationAccelerationFactor);
-    // rot = Mathf.Lerp(rot, Rotation, (float)(delta * 0.0001));
-    // slowly rotate the root node
-    // Rotation = Mathf.Lerp(Rotation, Rotation + rotation, (float)Mathf.Clamp(delta * RotationAccelerationFactor, 0, 0.01));
-    // Rotation += rot;
   }
 
   /// <summary>
