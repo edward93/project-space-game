@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdxcvpvm63hk0"]
+[gd_scene load_steps=3 format=3 uid="uid://bdxcvpvm63hk0"]
 
 [ext_resource type="PackedScene" uid="uid://d112h4wsu7qti" path="res://Scenes/Player.tscn" id="1_t7rcg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqxfk"]
+radius = 79.0569
 
 [node name="Root" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_t7rcg")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(496, 130)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_cqxfk")

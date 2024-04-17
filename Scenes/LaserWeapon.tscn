@@ -25,6 +25,7 @@ shader_parameter/beam_central_part = SubResource("GradientTexture2D_1yjqx")
 script = ExtResource("1_0g1gy")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = false
 target_position = Vector2(10000, 0)
 
 [node name="LaserBeam" type="Line2D" parent="RayCast2D"]

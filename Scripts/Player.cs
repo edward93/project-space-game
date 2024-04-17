@@ -56,7 +56,7 @@ public partial class Player : RigidBody2D
   /// </summary>
   public override void _Ready()
   {
-    _model = GetNode<Node2D>("Model");
+    _model = GetNode<Node2D>("TransformRoot/Model");
     _aimLine = GetNode<Line2D>("HelperGuides/Aim");
 
     _aimLine.AddPoint(Vector2.Zero);
