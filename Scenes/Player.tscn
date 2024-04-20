@@ -1,13 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://d112h4wsu7qti"]
+[gd_scene load_steps=16 format=3 uid="uid://d112h4wsu7qti"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_73vcq"]
 [ext_resource type="PackedScene" uid="uid://df7y6nu3sxrcq" path="res://Scenes/LaserWeapon.tscn" id="2_h8hhr"]
 [ext_resource type="Texture2D" uid="uid://dagklebpo4qoy" path="res://Assets/Spacecrafts/GreenFigher.png" id="2_qtph4"]
 [ext_resource type="PackedScene" uid="uid://cp16oa2p72t1x" path="res://Scenes/PlayerHUD.tscn" id="3_1vyjo"]
+[ext_resource type="Shader" path="res://Materials/Shaders/Shield.gdshader" id="5_de4fk"]
+[ext_resource type="Material" uid="uid://cojpq3var7hu2" path="res://Materials/ShieldMaterial.tres" id="5_lfnpc"]
+[ext_resource type="Texture2D" uid="uid://dysh1edvrohaw" path="res://Materials/Shaders/ShieldAlphaMask.tres" id="6_pkv2c"]
+[ext_resource type="Texture2D" uid="uid://cqdxsdtkh7t2r" path="res://icon.svg" id="6_qvl1j"]
+[ext_resource type="Texture2D" uid="uid://de0waen685isi" path="res://Materials/Shaders/ShieldGlowGradient.tres" id="7_4osif"]
+[ext_resource type="Texture2D" uid="uid://cb57b40kc8yoy" path="res://Materials/Shaders/ShieldNoise.tres" id="8_dm3i6"]
+[ext_resource type="Texture2D" uid="uid://1e8iw760v44r" path="res://Materials/Shaders/ShieldPulsGradient.tres" id="9_oa30m"]
+[ext_resource type="Texture2D" uid="uid://bvinnejpwvp3s" path="res://Materials/Shaders/ShieldShipMask.tres" id="10_5lbnr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pdpup"]
 radius = 32.0
 height = 65.0001
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mpgk1"]
+shader = ExtResource("5_de4fk")
+shader_parameter/main_color = Color(0.733333, 0.517647, 0.929412, 1)
+shader_parameter/shield_color = Color(1, 1, 1, 1)
+shader_parameter/pulse_speed = 0.34
+shader_parameter/alpha_mask = ExtResource("6_pkv2c")
+shader_parameter/glow_gradient = ExtResource("7_4osif")
+shader_parameter/ship_mask = ExtResource("10_5lbnr")
+shader_parameter/shield_noise = ExtResource("8_dm3i6")
+shader_parameter/shine_gradient = ExtResource("9_oa30m")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_252hp"]
+radius = 64.0
 
 [node name="Player" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -25,6 +47,7 @@ position = Vector2(31, 0)
 position = Vector2(-0.5, 0)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_pdpup")
+debug_color = Color(0.788235, 0.647059, 0.415686, 0.533333)
 
 [node name="TransformRoot" type="Node2D" parent="."]
 rotation = 1.57079
@@ -42,3 +65,17 @@ default_color = Color(0.560784, 0, 0.113725, 1)
 
 [node name="HUD" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("3_1vyjo")]
 Player = NodePath("..")
+
+[node name="Shield" type="Node2D" parent="."]
+
+[node name="ShieldTexture" type="Sprite2D" parent="Shield"]
+material = SubResource("ShaderMaterial_mpgk1")
+texture = ExtResource("6_qvl1j")
+
+[node name="Shield" type="Area2D" parent="Shield"]
+material = ExtResource("5_lfnpc")
+
+[node name="ShieldCollider" type="CollisionShape2D" parent="Shield/Shield"]
+visible = false
+z_index = -1
+shape = SubResource("CircleShape2D_252hp")

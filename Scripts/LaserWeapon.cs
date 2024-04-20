@@ -3,7 +3,7 @@ using System;
 
 public partial class LaserWeapon : Node2D
 {
-  #region poperties
+  #region properties
   private const string LASER_STATS = "Laser Stats";
   /// <summary>
   /// How strong is the laser. This will determine how much damage is done

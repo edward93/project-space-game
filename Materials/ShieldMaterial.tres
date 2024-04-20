@@ -1,0 +1,60 @@
+[gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://cojpq3var7hu2"]
+
+[ext_resource type="Shader" path="res://Materials/Shaders/Shield.gdshader" id="1_l2qet"]
+
+[sub_resource type="Gradient" id="Gradient_kqkr7"]
+offsets = PackedFloat32Array(0.161074, 0.637584)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8260j"]
+gradient = SubResource("Gradient_kqkr7")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_8r43j"]
+offsets = PackedFloat32Array(0.577181, 0.778524)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rd41x"]
+gradient = SubResource("Gradient_8r43j")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+repeat = 1
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_bv74w"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.00671141, 0.704698)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_op5x8"]
+gradient = SubResource("Gradient_bv74w")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l0j8u"]
+noise_type = 2
+seed = 3
+frequency = 0.0099
+fractal_type = 0
+cellular_distance_function = 1
+cellular_jitter = 0.74
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2w888"]
+seamless = true
+noise = SubResource("FastNoiseLite_l0j8u")
+
+[resource]
+shader = ExtResource("1_l2qet")
+shader_parameter/main_color = Color(0.505882, 0.741176, 0.886275, 1)
+shader_parameter/shield_color = Color(0.901961, 0.964706, 1, 1)
+shader_parameter/alpha_mask = SubResource("GradientTexture2D_8260j")
+shader_parameter/glow_gradient = SubResource("GradientTexture2D_rd41x")
+shader_parameter/shield_mask = SubResource("GradientTexture2D_op5x8")
+shader_parameter/shield_noise = SubResource("NoiseTexture2D_2w888")
