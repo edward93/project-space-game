@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://ccicq432hqb1i" path="res://Assets/UI/CompassWithBg.png" id="2_xy6ky"]
 [ext_resource type="Texture2D" uid="uid://bot5f772mac7d" path="res://Assets/UI/Arrow.png" id="3_88gsq"]
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("Player")]
 script = ExtResource("1_v84yx")
+Player = NodePath("")
 
 [node name="Velocity" type="Control" parent="."]
 layout_mode = 3

@@ -1,0 +1,40 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7upwlptuiw55"]
+
+[ext_resource type="Script" path="res://Scripts/EnergyShield.cs" id="1_bdx67"]
+[ext_resource type="Shader" path="res://Materials/Shaders/Shield.gdshader" id="1_n5v65"]
+[ext_resource type="Texture2D" uid="uid://dysh1edvrohaw" path="res://Materials/Shaders/ShieldAlphaMask.tres" id="2_yaeu3"]
+[ext_resource type="Texture2D" uid="uid://de0waen685isi" path="res://Materials/Shaders/ShieldGlowGradient.tres" id="3_sjor6"]
+[ext_resource type="Texture2D" uid="uid://cb57b40kc8yoy" path="res://Materials/Shaders/ShieldNoise.tres" id="4_kfu2j"]
+[ext_resource type="Texture2D" uid="uid://1e8iw760v44r" path="res://Materials/Shaders/ShieldPulsGradient.tres" id="5_7toa6"]
+[ext_resource type="Texture2D" uid="uid://bvinnejpwvp3s" path="res://Materials/Shaders/ShieldShipMask.tres" id="6_pjgjr"]
+[ext_resource type="Texture2D" uid="uid://cqdxsdtkh7t2r" path="res://icon.svg" id="7_0dxe8"]
+[ext_resource type="Material" uid="uid://cojpq3var7hu2" path="res://Materials/ShieldMaterial.tres" id="8_jhy54"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mpgk1"]
+shader = ExtResource("1_n5v65")
+shader_parameter/main_color = Color(0.733333, 0.517647, 0.929412, 1)
+shader_parameter/shield_color = Color(1, 1, 1, 1)
+shader_parameter/pulse_speed = 0.34
+shader_parameter/alpha_mask = ExtResource("2_yaeu3")
+shader_parameter/glow_gradient = ExtResource("3_sjor6")
+shader_parameter/ship_mask = ExtResource("6_pjgjr")
+shader_parameter/shield_noise = ExtResource("4_kfu2j")
+shader_parameter/shine_gradient = ExtResource("5_7toa6")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_252hp"]
+radius = 64.0
+
+[node name="Shield" type="Node2D"]
+script = ExtResource("1_bdx67")
+
+[node name="ShieldTexture" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mpgk1")
+texture = ExtResource("7_0dxe8")
+
+[node name="Shield" type="Area2D" parent="."]
+material = ExtResource("8_jhy54")
+
+[node name="ShieldCollider" type="CollisionShape2D" parent="Shield"]
+z_index = -1
+shape = SubResource("CircleShape2D_252hp")
+debug_color = Color(0, 0.6, 0.701961, 0)
