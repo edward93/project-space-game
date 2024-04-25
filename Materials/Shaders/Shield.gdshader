@@ -1,4 +1,7 @@
 shader_type canvas_item;
+//render_mode skip_vertex_transform;
+
+
 // main shield color
 uniform vec4 main_color : source_color = vec4(0.22, 0.66, 1.0, 0.5);
 // main shield highlight color
@@ -17,12 +20,17 @@ uniform sampler2D shine_gradient : repeat_enable;
 // puls animation speed
 uniform float pulse_speed: hint_range(0.0, 1.0, 0.01) = 0.1;
 
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
+// screen texture
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+// how much to warp
+uniform float warp_factor: hint_range(0.1, 10.0, 0.01) = 0.5;
+// model center
+varying vec2 center;
 
-float random () {
-    return fract(sin(dot(vec2(TIME), vec2(12.9898, 4.1414))) * 43758.5453);
+
+void vertex() {
+	// texture center in the screen space
+	center = (CANVAS_MATRIX * MODEL_MATRIX[3]).xy;
 }
 
 // TODO: use vec4.rgb and vec4.a separately
@@ -51,9 +59,17 @@ void fragment() {
 	
 	// combine the shining texture with the main one
 	final_col = vec4(mix(final_col.rgb, shineTex, 0.1), shineTex.r * alpha);
-
+	
+	// warping/lensing effect
+	vec2 center_uv = center * SCREEN_PIXEL_SIZE;
+	vec2 shift_vec = SCREEN_UV - center_uv;
+	// shift from the center by warp_factor amount
+	vec3 screen = texture(screen_texture, center_uv + shift_vec * warp_factor).rgb;
+	final_col.rgb = mix(final_col.rgb, screen, 0.5);
+	
 	COLOR.rgb = final_col.rgb;
-	COLOR.a *= shineTex.r * alpha * shipMask;
+	//COLOR.a *= shineTex.r * alpha * shipMask;
+	COLOR.a *= alpha;
 }
 
 void light() {

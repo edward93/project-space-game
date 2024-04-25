@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7upwlptuiw55"]
+[gd_scene load_steps=13 format=3 uid="uid://b7upwlptuiw55"]
 
 [ext_resource type="Script" path="res://Scripts/EnergyShield.cs" id="1_bdx67"]
 [ext_resource type="Shader" path="res://Materials/Shaders/Shield.gdshader" id="1_n5v65"]
+[ext_resource type="Texture2D" uid="uid://dwr2yip0k1s2f" path="res://Assets/Test_1m x 1m.png" id="2_sptog"]
 [ext_resource type="Texture2D" uid="uid://dysh1edvrohaw" path="res://Materials/Shaders/ShieldAlphaMask.tres" id="2_yaeu3"]
 [ext_resource type="Texture2D" uid="uid://de0waen685isi" path="res://Materials/Shaders/ShieldGlowGradient.tres" id="3_sjor6"]
 [ext_resource type="Texture2D" uid="uid://cb57b40kc8yoy" path="res://Materials/Shaders/ShieldNoise.tres" id="4_kfu2j"]
@@ -15,6 +16,7 @@ shader = ExtResource("1_n5v65")
 shader_parameter/main_color = Color(0.733333, 0.517647, 0.929412, 1)
 shader_parameter/shield_color = Color(1, 1, 1, 1)
 shader_parameter/pulse_speed = 0.34
+shader_parameter/warp_factor = 1.28
 shader_parameter/alpha_mask = ExtResource("2_yaeu3")
 shader_parameter/glow_gradient = ExtResource("3_sjor6")
 shader_parameter/ship_mask = ExtResource("6_pjgjr")
@@ -27,7 +29,17 @@ radius = 64.0
 [node name="Shield" type="Node2D"]
 script = ExtResource("1_bdx67")
 
-[node name="ShieldTexture" type="Sprite2D" parent="."]
+[node name="TestBg" type="TextureRect" parent="."]
+visible = false
+texture_repeat = 2
+offset_left = -4557.0
+offset_top = -3811.0
+offset_right = 5591.0
+offset_bottom = 4355.0
+texture = ExtResource("2_sptog")
+stretch_mode = 1
+
+[node name="ShieldSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_mpgk1")
 texture = ExtResource("7_0dxe8")
 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdxcvpvm63hk0"]
+[gd_scene load_steps=4 format=3 uid="uid://bdxcvpvm63hk0"]
 
+[ext_resource type="Texture2D" uid="uid://dwr2yip0k1s2f" path="res://Assets/Test_1m x 1m.png" id="1_1bqqo"]
 [ext_resource type="PackedScene" uid="uid://d112h4wsu7qti" path="res://Scenes/Player.tscn" id="1_t7rcg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cqxfk"]
@@ -7,9 +8,21 @@ radius = 79.0569
 
 [node name="Root" type="Node2D"]
 
+[node name="TestBg" type="TextureRect" parent="."]
+texture_repeat = 2
+offset_left = -4557.0
+offset_top = -3811.0
+offset_right = 5591.0
+offset_bottom = 4355.0
+texture = ExtResource("1_1bqqo")
+stretch_mode = 1
+
 [node name="Player" parent="." instance=ExtResource("1_t7rcg")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 1.0
+rotation_smoothing_speed = 1.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(496, 130)

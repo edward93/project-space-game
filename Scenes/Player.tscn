@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d112h4wsu7qti"]
+[gd_scene load_steps=6 format=3 uid="uid://d112h4wsu7qti"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_73vcq"]
 [ext_resource type="PackedScene" uid="uid://df7y6nu3sxrcq" path="res://Scenes/LaserWeapon.tscn" id="2_h8hhr"]
 [ext_resource type="Texture2D" uid="uid://dagklebpo4qoy" path="res://Assets/Spacecrafts/GreenFigher.png" id="2_qtph4"]
 [ext_resource type="PackedScene" uid="uid://cp16oa2p72t1x" path="res://Scenes/PlayerHUD.tscn" id="3_1vyjo"]
 [ext_resource type="PackedScene" uid="uid://b7upwlptuiw55" path="res://Scenes/EnergyShield.tscn" id="5_yjv2s"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pdpup"]
-radius = 32.0
-height = 65.0001
 
 [node name="Player" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -22,11 +18,9 @@ script = ExtResource("1_73vcq")
 [node name="Laser" parent="Weapons" instance=ExtResource("2_h8hhr")]
 position = Vector2(31, 0)
 
-[node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
+[node name="Collider" type="CollisionPolygon2D" parent="."]
 rotation = 1.57079
-shape = SubResource("CapsuleShape2D_pdpup")
-debug_color = Color(0.788235, 0.647059, 0.415686, 0.533333)
+polygon = PackedVector2Array(3.0002, -32, 13, -3.5, 21.7, -3.5, 29.5, -15.7, 29.5, 15.5, 15.4, 31.5, -14.7, 31.5, -29.5, 16.3, -29.5, -15.7, -22.1, -3.5, -13.5, -3.5, -2.9998, -32)
 
 [node name="TransformRoot" type="Node2D" parent="."]
 rotation = 1.57079

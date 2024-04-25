@@ -24,7 +24,7 @@ public partial class EnergyShield : Node2D
   /// </summary>
   public override void _Ready()
   {
-    _shieldSprite = GetNode<Sprite2D>("ShieldTexture");
+    _shieldSprite = GetNode<Sprite2D>("ShieldSprite");
     _shieldCollider = GetNode<CollisionShape2D>("Shield/ShieldCollider");
     _shieldEnabled = false;
 
