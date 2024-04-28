@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp16oa2p72t1x"]
+[gd_scene load_steps=6 format=3 uid="uid://cp16oa2p72t1x"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerHUD.cs" id="1_v84yx"]
 [ext_resource type="Texture2D" uid="uid://ccicq432hqb1i" path="res://Assets/UI/CompassWithBg.png" id="2_xy6ky"]
 [ext_resource type="Texture2D" uid="uid://bot5f772mac7d" path="res://Assets/UI/Arrow.png" id="3_88gsq"]
+[ext_resource type="Theme" uid="uid://cv6ljb675b1k7" path="res://Assets/Theme/MainTheme.tres" id="4_xl516"]
+[ext_resource type="FontFile" uid="uid://cj4p87siaq2hf" path="res://Assets/Fonts/Quantico/Quantico-Regular.ttf" id="5_ipmmv"]
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("Player")]
+[node name="UI" type="CanvasLayer"]
 script = ExtResource("1_v84yx")
-Player = NodePath("")
 
 [node name="Velocity" type="Control" parent="."]
 layout_mode = 3
@@ -18,6 +19,7 @@ offset_top = -209.0
 offset_right = 228.0
 offset_bottom = -42.0
 grow_vertical = 0
+theme = ExtResource("4_xl516")
 
 [node name="Velocity Circle" type="TextureRect" parent="Velocity"]
 layout_mode = 1
@@ -65,3 +67,43 @@ grow_vertical = 2
 pivot_offset = Vector2(-46, 8)
 texture = ExtResource("3_88gsq")
 expand_mode = 2
+
+[node name="Energy" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 387.0
+offset_bottom = 87.0
+theme = ExtResource("4_xl516")
+
+[node name="MarginContainer" type="MarginContainer" parent="Energy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Energy/MarginContainer"]
+layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="Energy/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("4_xl516")
+theme_override_fonts/font = ExtResource("5_ipmmv")
+text = "Energy"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Energy/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnergyBar" type="ProgressBar" parent="Energy/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 20.0
+show_percentage = false
+
+[node name="EnergyValue" type="Label" parent="Energy/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "20"

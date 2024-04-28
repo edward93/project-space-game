@@ -5,23 +5,14 @@ using System.ComponentModel.DataAnnotations;
 
 public partial class Player : RigidBody2D
 {
-  /// <summary>
-  /// Instant acceleration of the object
-  /// </summary>
-  [Export]
-  public float Acceleration = 5.0f;
+  private const string SPEED_AND_ACCELERATION = "Speed & Acceleration";
 
   /// <summary>
-  /// Angular velocity min value
+  /// Total energy
   /// </summary>
-  [Export]
-  public float AngularVelocityMin = -0.75f;
+  public int TotalEnergy { get; set; } = 130;
 
-  /// <summary>
-  /// Angular velocity max value
-  /// </summary>
-  [Export]
-  public float AngularVelocityMax = 0.75f;
+  public int CurrentEnergy { get; set; } = 90;
 
   /// <summary>
   /// How quickly model rotates
@@ -40,6 +31,26 @@ public partial class Player : RigidBody2D
   /// </summary>
   [Export]
   public float AimOffset = 25.0f;
+  /// <summary>
+  /// Instant acceleration of the object
+  /// </summary>
+  [Export]
+  [ExportGroup(SPEED_AND_ACCELERATION)]
+  public float Acceleration = 5.0f;
+
+  /// <summary>
+  /// Angular velocity min value
+  /// </summary>
+  [Export]
+  [ExportGroup(SPEED_AND_ACCELERATION)]
+  public float AngularVelocityMin = -0.75f;
+
+  /// <summary>
+  /// Angular velocity max value
+  /// </summary>
+  [Export]
+  [ExportGroup(SPEED_AND_ACCELERATION)]
+  public float AngularVelocityMax = 0.75f;
 
   /// <summary>
   /// Model root node, used for rotation

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdxcvpvm63hk0"]
 
-[ext_resource type="Texture2D" uid="uid://dwr2yip0k1s2f" path="res://Assets/Test_1m x 1m.png" id="1_1bqqo"]
+[ext_resource type="Texture2D" uid="uid://dwr2yip0k1s2f" path="res://Assets/Textures/Test_1m x 1m.png" id="1_1bqqo"]
 [ext_resource type="PackedScene" uid="uid://d112h4wsu7qti" path="res://Scenes/Player.tscn" id="1_t7rcg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cqxfk"]
@@ -9,6 +9,7 @@ radius = 79.0569
 [node name="Root" type="Node2D"]
 
 [node name="TestBg" type="TextureRect" parent="."]
+visible = false
 texture_repeat = 2
 offset_left = -4557.0
 offset_top = -3811.0

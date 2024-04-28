@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/EnergyShield.cs" id="1_bdx67"]
 [ext_resource type="Shader" path="res://Materials/Shaders/Shield.gdshader" id="1_n5v65"]
-[ext_resource type="Texture2D" uid="uid://dwr2yip0k1s2f" path="res://Assets/Test_1m x 1m.png" id="2_sptog"]
+[ext_resource type="Texture2D" uid="uid://dwr2yip0k1s2f" path="res://Assets/Textures/Test_1m x 1m.png" id="2_sptog"]
 [ext_resource type="Texture2D" uid="uid://dysh1edvrohaw" path="res://Materials/Shaders/ShieldAlphaMask.tres" id="2_yaeu3"]
 [ext_resource type="Texture2D" uid="uid://de0waen685isi" path="res://Materials/Shaders/ShieldGlowGradient.tres" id="3_sjor6"]
 [ext_resource type="Texture2D" uid="uid://cb57b40kc8yoy" path="res://Materials/Shaders/ShieldNoise.tres" id="4_kfu2j"]

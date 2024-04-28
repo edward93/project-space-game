@@ -1,0 +1,35 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cv6ljb675b1k7"]
+
+[ext_resource type="FontFile" uid="uid://cj4p87siaq2hf" path="res://Assets/Fonts/Quantico/Quantico-Regular.ttf" id="1_6fwh5"]
+[ext_resource type="FontFile" uid="uid://drlv0o1mdcjvs" path="res://Assets/Fonts/Quantico/Quantico-Bold.ttf" id="2_6jnow"]
+[ext_resource type="FontFile" uid="uid://dhu0h0mrxlbq" path="res://Assets/Fonts/Quantico/Quantico-BoldItalic.ttf" id="3_5ddp0"]
+[ext_resource type="FontFile" uid="uid://d4e6v87c88a36" path="res://Assets/Fonts/Quantico/Quantico-Italic.ttf" id="4_g83d3"]
+
+[sub_resource type="FontVariation" id="FontVariation_12x84"]
+fallbacks = Array[Font]([ExtResource("2_6jnow"), ExtResource("3_5ddp0"), ExtResource("4_g83d3")])
+base_font = ExtResource("1_6fwh5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwktm"]
+bg_color = Color(0.364706, 0.364706, 0.364706, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.490196, 0.490196, 0.490196, 1)
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpug2"]
+bg_color = Color(0.423529, 0.627451, 0.760784, 1)
+
+[resource]
+default_font = ExtResource("1_6fwh5")
+/fonts/Font = SubResource("FontVariation_12x84")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 15
+MarginContainer/constants/margin_right = 15
+MarginContainer/constants/margin_top = 10
+ProgressBar/styles/background = SubResource("StyleBoxFlat_nwktm")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_gpug2")

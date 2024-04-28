@@ -42,6 +42,7 @@ shader = ExtResource("1_l2qet")
 shader_parameter/main_color = Color(0.505882, 0.741176, 0.886275, 1)
 shader_parameter/shield_color = Color(0.901961, 0.964706, 1, 1)
 shader_parameter/pulse_speed = 0.1
+shader_parameter/warp_factor = 0.5
 shader_parameter/alpha_mask = SubResource("GradientTexture2D_8260j")
 shader_parameter/glow_gradient = SubResource("GradientTexture2D_rd41x")
 shader_parameter/shield_noise = SubResource("NoiseTexture2D_2w888")
