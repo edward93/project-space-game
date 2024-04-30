@@ -4,7 +4,7 @@ using System;
 public partial class PlayerHUD : CanvasLayer
 {
   [Export]
-  private RigidBody2D Player = new RigidBody2D();
+  private Player Player = new Player();
 
   /// <summary>
   /// Speed label
@@ -35,12 +35,7 @@ public partial class PlayerHUD : CanvasLayer
     _energyBar = GetNode<ProgressBar>("Energy/MarginContainer/VBoxContainer/HBoxContainer/EnergyBar");
 
     #region energy UI
-    var currentEnergy = (Player as Player).CurrentEnergy;
-    var totalEnergy = (Player as Player).TotalEnergy;
-
-    _energyValue.Text = $"{(Player as Player).CurrentEnergy}";
-    _energyBar.MaxValue = totalEnergy;
-    _energyBar.Value = (double)currentEnergy;
+    UpdateEnergyUI();
     #endregion
   }
 
@@ -54,5 +49,21 @@ public partial class PlayerHUD : CanvasLayer
 
     // show the player's direction
     _directionArrow.Rotation = Player.Rotation;
+
+    // update energy bar
+    UpdateEnergyUI();
+  }
+
+  /// <summary>
+  /// Update energy values on the UI
+  /// </summary>
+  private void UpdateEnergyUI()
+  {
+    var currentEnergy = Player.CurrentEnergy;
+    var totalEnergy = Player.TotalEnergy;
+
+    _energyValue.Text = $"{Player.CurrentEnergy:F2}";
+    _energyBar.MaxValue = totalEnergy;
+    _energyBar.Value = (double)currentEnergy;
   }
 }

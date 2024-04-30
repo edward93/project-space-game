@@ -40,3 +40,5 @@ default_color = Color(0.560784, 0, 0.113725, 1)
 Player = NodePath("..")
 
 [node name="Shield" parent="." instance=ExtResource("5_yjv2s")]
+
+[connection signal="EnergyDepleted" from="." to="." method="OnEnergyDepleted"]
